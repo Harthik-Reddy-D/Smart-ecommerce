@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}<h1 class="text-3xl font-bold mb-5">Notifications</h1><div class="space-y-2" id="notifications">{% for n in notifications %}<div class="bg-white p-4 rounded-xl {% if not n.is_read %}border-l-4 border-blue-500{% endif %}"><a href="{% if n.order %}{% url 'orders:detail' n.order.id %}{% else %}{% url 'notifications:read' n.id %}{% endif %}">
+    {{ n.message }}
+</a><div class="text-xs text-slate-500">{{ n.timestamp }}</div></div>{% empty %}<p>No notifications.</p>{% endfor %}</div>{% endblock %}
+{% block scripts %}<script src="{% static 'js/notifications.js' %}"></script>{% endblock %}

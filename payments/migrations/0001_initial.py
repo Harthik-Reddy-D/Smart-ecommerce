@@ -1,0 +1,6 @@
+from django.db import migrations,models
+import django.db.models.deletion
+class Migration(migrations.Migration):
+ initial=True
+ dependencies=[("orders","0001_initial")]
+ operations=[migrations.CreateModel(name="Payment",fields=[("id",models.BigAutoField(primary_key=True,serialize=False)),("amount",models.DecimalField(decimal_places=2,max_digits=12)),("payment_method",models.CharField(choices=[("stripe","Stripe")],default="stripe",max_length=30)),("transaction_id",models.CharField(blank=True,max_length=255,null=True,unique=True)),("status",models.CharField(choices=[("pending","Pending"),("succeeded","Succeeded"),("failed","Failed")],db_index=True,default="pending",max_length=20)),("created_at",models.DateTimeField(auto_now_add=True)),("updated_at",models.DateTimeField(auto_now=True)),("order",models.OneToOneField(on_delete=django.db.models.deletion.PROTECT,related_name="payment",to="orders.order"))],options={"indexes":[models.Index(fields=["status","created_at"],name="payments_pa_status_9c4b8d_idx")]}),migrations.CreateModel(name="StripeEvent",fields=[("id",models.BigAutoField(primary_key=True,serialize=False)),("event_id",models.CharField(max_length=255,unique=True)),("event_type",models.CharField(max_length=100)),("processed_at",models.DateTimeField(auto_now_add=True))])]

@@ -1,0 +1,1 @@
+(()=>{const p=location.protocol==='https:'?'wss':'ws';const s=new WebSocket(`${p}://${location.host}/ws/notifications/`);s.onmessage=e=>{const d=JSON.parse(e.data);if(d.type==='notification'){const el=document.getElementById('notifications');if(el){const x=document.createElement('div');x.className='bg-blue-50 p-4 rounded-xl mb-2';x.textContent=d.message;el.prepend(x)}}}})();
